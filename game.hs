@@ -2,6 +2,7 @@
 type Vertex = Integer
 --Node is identified by its number and has an array of neighbours
 type Node = (Vertex, [Vertex])
+type Edge = (Vertex, Vertex)
 --Graph is an array of nodes
 type Graph = [Node]
 --The current state contains the current vertex identifier, an array containing the history for going back, the world graph, the current remaining moves and the goal identifier
@@ -22,9 +23,20 @@ setNeighbours (v, _) newNeigh = (v, newNeigh)
 
 --change a node in the graph
 changeNode :: Node->Graph->Graph
-changeNode _ []                       	    = []
+changeNode _ [] = []
 changeNode (v, neigh) ((i, n) : rest) | v == i    = (v, neigh) : rest
                                       | otherwise = (i, n) : (changeNode (v, neigh) rest)
+
+--add neighbour to node
+addNeighbour :: Vertex->Vertex->Graph->Graph
+addNeighbour _ _ [] = []
+addNeighbour v n world | n `elem` (neighbours (getNode v world)) = world
+                       | otherwise           = changeNode (v, n : (neighbours (getNode v world))) world
+
+--add edge
+addEdge :: Edge->Graph->Graph
+addEdge _ [] = []
+addEdge (v1, v2) world = addNeighbour v1 v2 (addNeighbour v2 v1 world)
 
 --move in graph
 move :: State->Vertex->State
