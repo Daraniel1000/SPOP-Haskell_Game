@@ -8,6 +8,28 @@ type Graph = [Node]
 --The current state contains the current vertex identifier, an array containing the history for going back, the world graph, the current remaining moves and the goal identifier
 type State = (Vertex, [Vertex], Graph, Integer, Vertex)
 
+--getters
+getPos :: State->Vertex
+getPos (p, _, _, _, _) = p
+getHistory :: State->[Vertex]
+getHistory (_, h, _, _, _) = h
+getWorld :: State->Graph
+getWorld (_, _, w, _, _) = w
+getTime :: State->Integer
+getTime (_, _, _, t, _) = t
+getGoal :: State->Vertex
+getGoal (_, _, _, _, g) = g
+
+--setters
+setPos :: State->Vertex->State
+setPos (p, h, w, t, g) newp = (newp, h, w, t, g)
+setWorld :: State->Graph->State
+setWorld (p, h, w, t, g) neww = (p, h, neww, t, g)
+setTime :: State->Integer->State
+setTime (p, h, w, t, g) newt = (p, h, w, newt, g)
+setGoal :: State->Vertex->State
+setGoal (p, h, w, t, g) newg = (p, h, w, t, newg)
+
 --get a node from a graph by vertex identifier
 getNode :: Vertex->Graph->Node
 getNode v [] = (-1, [])
