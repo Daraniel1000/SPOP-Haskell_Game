@@ -1,6 +1,7 @@
 module Main where
 import World
 import Interface
+import Quest
 import Text.Read
 
 
@@ -25,10 +26,6 @@ cityNames = ["Warszawa", "Londyn", "Berlin", "Praga", "Skopje", "Madryt", "Helsi
 
 startState = (0, [], worldMap, 7, 7)
 
-tasksTexts = ["0 Co tam stoi?", "1 Leloslsoels", "2 ABCDACA", "3 srori", "4 iec", "5 bobo", "6 co sie gapisz?", "7 leszczuu"]
-tasksSolutions = ["Warszawa", "Londyn", "Berlin", "Praga", "Skopje", "Madryt", "Helsinki", "Ryga"]
-tasksSolvedComments = ["Waw - good", "Lon - good", "Ber - good", "Pra - good", "Sko- good", "Mad - good", "Hel - good", "Ryg - good"]
-tasksFailedComments = ["Waw - fail", "Lon - fail", "Ber - fail", "Pra - fail", "Sko- fail", "Mad - fail", "Hel - fail", "Ryg - fail"]
 
 main :: IO ()
 main = do
@@ -36,28 +33,34 @@ main = do
     showPosibilities startState cityNames True
     return ()
 
-showTask :: State -> [String] -> Bool -> IO State
-showTask (place, history, world, moves, goal) cities repeated = do
-    putStrLn ("Twoje zadanie: " ++ tasksTexts !! (fromIntegral place ::Int))
+
+doQuest :: State -> [String] -> IO State
+doQuest (place, history, world, moves, goal) cities = do
+    putStrLn (showQuest place)
     solution <- getLine
     case solution of
         "pomoc" -> do
             putStr showHelp
-            showPosibilities (place, history, world, moves, goal) cities True
+            doQuest (place, history, world, moves, goal) cities
         "czas" -> do
             putStr ("Pozostalo Ci " ++ (show moves) ++ " ruchow. Spiesz sie!\n \n")
-            showPosibilities (place, history, world, moves, goal) cities True
+            doQuest (place, history, world, moves, goal) cities
         "cel" -> do
             putStr ("Musisz dotrzec do " ++ (getCityName (fromIntegral goal ::Int) cities) ++ ". \n \n")
-            showPosibilities (place, history, world, moves, goal) cities True
+            doQuest (place, history, world, moves, goal) cities
         "wyjdz" -> do
             putStr ("Dzieki za gre. Do zobaczenia przy kolejnej misji! \n")
-            return ()
+            return (-1, history, world, moves, goal)
         otherwise -> do
-            if solution == (tasksSolutions !! (fromIntegral place ::Int))
-              then putStrLn (tasksSolvedComments !! (fromIntegral place ::Int))
-            else putStrLn (tasksFailedComments !! (fromIntegral place ::Int))
-    return (place, history, world, moves, goal)
+            if solution == ( checkSolution place )
+                then do
+                    let newState = correctSolution (place, history, world, moves, goal)
+                    putStr (correctSolutionComment place)
+                    return newState
+                else do
+                    let newState = wrongSolution (place, history, world, moves, goal)
+                    putStr (wrongSolutionComment place)
+                    return newState
 
 
 showCities :: [String]-> [Vertex] -> IO ()
@@ -90,7 +93,7 @@ showPosibilities (place, history, world, moves, goal) cities repeated = do
             showGreeting place cities
             if repeated == False
                 then do
-                    afterTaskState <- showTask (place, history, world, moves, goal) cities repeated
+                    afterTaskState <- doQuest (place, history, world, moves, goal) cities
                     showPosibilities afterTaskState cities True
                 else do
                     putStr "Z obecnego polozenia mozesz doleciec do: \n"
