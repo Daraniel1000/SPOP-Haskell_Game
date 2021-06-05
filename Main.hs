@@ -20,11 +20,11 @@ getLost state   | getMoves state == [] = False
                 | otherwise            = getLost (move state (head (getMoves state)))
 
 --map, see world.jpg
-worldMap = [(0, [1, 2, 3]), (1, [0, 2, 4]), (2, [0, 1, 6]), (3, [0, 6]), (4, [1, 5]), (5, [4]), (6, [2, 3, 7]), (7, [6])]
+worldMap = [(0, [1, 2, 4]), (1, [0, 6, 8]), (2, [0, 7, 12]), (3, [4, 9]), (4, [0, 3, 5]), (5, [4, 9, 16]), (6, [1, 8, 14]), (7, [2, 16, 18]), (8, [1, 6, 10]), (9, [3, 5, 16]), (10, [8, 11, 12]), (11, [10, 13]), (12, [2, 10, 13]), (13, [11, 13]), (14, [6, 15, 17]), (15, [14, 17, 18]), (16, [5, 7, 9]), (17, [5, 14, 15]), (18, [7, 9, 15])]
 
-cityNames = ["Warszawa", "Londyn", "Berlin", "Praga", "Skopje", "Madryt", "Helsinki", "Ryga"]
+cityNames = ["Warszawa", "Krakow", "Berlin", "Amsterdam", "Paryz", "Bruksela", "Wieden", "Londyn", "Ateny", "Moskwa", "Kair", "Rijad", "Nowe Delhi", "Hanoi", "Sydney", "Tokio", "Pekin", "Seul", "Nowy Jork"]
 
-startState = (0, [], worldMap, 7, 7)
+startState = (0, [], worldMap, 7, 15)
 
 
 main :: IO ()
