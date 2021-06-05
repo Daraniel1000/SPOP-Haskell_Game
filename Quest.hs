@@ -13,10 +13,10 @@ import World
 import System.IO
 import Data.Maybe
 
-questTexts = ["0 Co tam stoi?", "1 Leloslsoels", "2 ABCDACA", "3 srori", "4 iec", "5 bobo", "6 co sie gapisz?", "7 leszczuu"]
-questSolutions = ["Warszawa", "Londyn", "Berlin", "Praga", "Skopje", "Madryt", "Helsinki", "Ryga"]
-questSolvedComments = ["Waw - good", "Lon - good", "Ber - good", "Pra - good", "Sko- good", "Mad - good", "Hel - good", "Ryg - good"]
-questFailedComments = ["Waw - fail", "Lon - fail", "Ber - fail", "Pra - fail", "Sko- fail", "Mad - fail", "Hel - fail", "Ryg - fail"]
+questTexts = ["Warszawa - q", "Krakow - q", "Berlin - q", "Amsterdam - q", "Paryz - q", "Bruksela - q", "Wieden - q", "Londyn - q", "Ateny - q", "Moskwa - q", "Kair - q", "Rijad - q", "Nowe Delhi - q", "Hanoi - q", "Sydney - q", "Tokio - q", "Pekin - q", "Seul - q", "Nowy Jork - q"]
+questSolutions = ["Warszawa", "Krakow", "Berlin", "Amsterdam", "Paryz", "Bruksela", "Wieden", "Londyn", "Ateny", "Moskwa", "Kair", "Rijad", "Nowe Delhi", "Hanoi", "Sydney", "Tokio", "Pekin", "Seul", "Nowy Jork"]
+questSolvedComments = ["Warszawa - g", "Krakow - g", "Berlin - g", "Amsterdam - g", "Paryz - g", "Bruksela - g", "Wieden - g", "Londyn - g", "Ateny - g", "Moskwa - g", "Kair - g", "Rijad - g", "Nowe Delhi - g", "Hanoi - g", "Sydney - g", "Tokio - g", "Pekin - g", "Seul - g", "Nowy Jork - g"]
+questFailedComments = ["Warszawa", "Krakow", "Berlin", "Amsterdam", "Paryz", "Bruksela", "Wieden", "Londyn", "Ateny", "Moskwa", "Kair", "Rijad", "Nowe Delhi", "Hanoi", "Sydney", "Tokio", "Pekin", "Seul", "Nowy Jork"]
 
 
 showQuest :: Integer -> String
