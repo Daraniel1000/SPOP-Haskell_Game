@@ -1,4 +1,4 @@
-module Interface (
+module MissionInterface(
       showHelp,
       showIntro,
       getCityName,
@@ -35,7 +35,7 @@ showHelp = "\npomoc -> wyswietlenie podpowiedzi \n" ++
     "cel -> sprawdzenie, dokad musisz dotrzec \n" ++
     "wyjdz -> poddanie sie i skonczenie gry \n"++
     "Po przylocie do kazdego miasta, z wyjatkiem stanu poczatkowego i powtarzania statow, zostanie wyswietlone zadanie do wykonania. Odpowiedz nalezy wpisac korzystajac z malych liter. Za poprawne rozwiazanie mozna czasem otrzymac nagrode, natomiast za zle uzytkownik jest karany. \n" ++
-    "Na kazdym lotnisku po wykonaniu zadania (jesli takie sie pojawilo) lub bezposrednio po przmieszczeniu pojawi sie lista dostepnych polaczen lotniczych. W celu wyboru danego polaczenia nalezy podac numer znajdujacy sie przy nazwie miasta. Kazdy lot zabiera 3h z dostepnego czasu. \n" ++
+    "Na kazdym lotnisku po wykonaniu zadania (jesli takie sie pojawilo) lub bezposrednio po przemieszczeniu pojawi sie lista dostepnych polaczen lotniczych. W celu wybrania danego polaczenia nalezy podac numer znajdujacy sie przy nazwie miasta. Kazdy lot zabiera 3h z dostepnego czasu. \n" ++
     "\n"
 
 --function returns name of the target city
