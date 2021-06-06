@@ -36,7 +36,7 @@ main = do
 
 doQuest :: State -> [String] -> IO State
 doQuest (place, history, world, moves, goal) cities = do
-    putStrLn (showQuest place)
+    putStr (showQuest place)
     solution <- getLine
     case solution of
         "pomoc" -> do
