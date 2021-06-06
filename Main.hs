@@ -24,7 +24,7 @@ worldMap = [(0, [1, 2, 4]), (1, [0, 6, 8]), (2, [0, 7, 12]), (3, [4, 9]), (4, [0
 
 cityNames = ["Warszawa", "Krakow", "Berlin", "Amsterdam", "Paryz", "Bruksela", "Wieden", "Londyn", "Ateny", "Moskwa", "Kair", "Rijad", "Nowe Delhi", "Hanoi", "Sydney", "Tokio", "Pekin", "Seul", "Nowy Jork"]
 
-startState = (0, [], worldMap, 7, 15)
+startState = (0, [], worldMap, 20, 15)
 
 
 main :: IO ()
