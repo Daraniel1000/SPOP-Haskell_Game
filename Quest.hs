@@ -13,6 +13,7 @@ import World
 import System.IO
 import Data.Maybe
 
+--quests' descriptions
 questTexts = [
     "Slynna pani z telewizji podbiega do Ciebie z mikrofonem. Jesli poprawnie rozwiazesz rebus, mozesz poleciec do Stanow! \nChoc ma grzebien, to nigdy sie nim nie czesze, kto to taki?",
     "Nie do wiary! Spotykasz na lotnisku Roberta Maklowicza! Dluga rozmowa o kuchni konczy sie trudnym pytaniem: najpierw mleko czy platki? Co odpowiadasz?: \nmleko \nplatki",
@@ -33,7 +34,11 @@ questTexts = [
     "Bardzo zglodniales po tak dlugiej podrozy. Na co masz ochote? \ndim sum \nwonton \nchar siu \nkaczka",
     "Udajac sie na hale odlotow mijana osoba wciska Ci w reke kartke. Widnieje na niej rownanie: \n2/1 + 2/3 + 4/2 + 4/4 + 1/3 + 1/4 \nCo to moze znaczyc?",
     "Czekajac na odprawe spotykasz starsza pania z Polski. Prosi o pomoc w przypomnieniu slow piosenki. \nTyle slonca w calym miescie, \nnie widziales tego jeszcze _____ o _____! Wystarczy jedno slowo."]
+
+--quests' solutions
 questSolutions = ["kogut", "platki", "uwazaj", "rower", "zloniespi", "25", "2543", "2", "ostroznie", "widzimy", "cheopsa", "5", "zegar", "daleko", "l", "kanji", "kaczka", "blisko", "popatrz"]
+
+--comments after sloved quests
 questSolvedComments = [
     "Idealnie! Gratulacje! Lecisz do Nowego Jorku!",
     "Robert Maklowicz chwali sobie Twoj gust i chce Ci podarowac swoj bilet do Londynu!",
@@ -54,6 +59,8 @@ questSolvedComments = [
     "Kaczka po pekinsku byla pyszna! Jako deser jesz ciasteczko z wrozba - To bedzie dluga podroz...",
     "Dobra wiadomosc! Oby okazala sie prawdziwa!",
     "Tak, tak, zgadza sie! Starsza pani za pomoc zdradza Ci kod rabatowy na bilet na samolot lepszej klasy. Zyskujesz na tym rabacie 3 godziny."]
+
+--comments after failed quests
 questFailedComments = [
     "Niestety, to nie to. Chodzilo o koguta. Zostajesz w Polsce, ale jako nagrode pocieszenia dostajesz mieszanke wedlowska.",
     "Robertowi nie podoba sie Twoja odpowiedz. Robi Ci wyklad o wyzszosci dolewania mleka do platek, aby byly chrupiace. Tracisz 2 godziny.",
@@ -75,16 +82,22 @@ questFailedComments = [
     "No trudno! Nastepnym razem moze uda sie rozwiazac! Glowa do gory!",
     "Nie, tam chyba bylo inne slowo... Przez 1 godzine spiewacie razem rozne wersje, szukajac odpowiedzi na pytanie."]
 
+--additional time after solved quests
 questRewards = [0, 0, 1, 0, 0, 4, 3, 1, 1, 0, 3, 0, 5, 0, 0, 0, 0, 0, 3]
+
+--penatly time after failed quests
 questPenalties = [0, 2, 1, 2, 1, 2, 2, 2, 1, 1, 2, 1, 2, 0, 0, 4, 2, 0, 1]
 
-
+--function returns quest's description
 showQuest :: Integer -> String
 showQuest place = questTexts !! (fromIntegral place ::Int)
 
+--function returns quest's solution
 checkSolution :: Integer -> String
 checkSolution place = questSolutions !! (fromIntegral place ::Int)
 
+
+--function returns game's state after solved quest
 correctSolution :: State -> State
 correctSolution (place, history, world, moves, goal) =
     case place of
@@ -94,15 +107,17 @@ correctSolution (place, history, world, moves, goal) =
         11 ->  (6, history, world, moves, goal)
         otherwise -> (place, history, world, ( moves + questRewards !! (fromIntegral place ::Int) ), goal)
 
-
+--function returns proper comment after solved quest
 correctSolutionComment :: Integer -> String
 correctSolutionComment place = questSolvedComments !! (fromIntegral place ::Int) ++ "\n"
 
+--function returns game's state after failed quest
 wrongSolution :: State -> State
 wrongSolution (place, history, world, moves, goal) =
     case place of
         14 -> (7, history, world, moves, goal)
         otherwise -> (place, history, world, ( moves - questPenalties !! (fromIntegral place ::Int) ), goal)
 
+--function returns proper comment after failed quest
 wrongSolutionComment :: Integer -> String
 wrongSolutionComment place = questFailedComments !! (fromIntegral place ::Int) ++ "\n"
