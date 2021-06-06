@@ -46,11 +46,11 @@ doQuest (place, history, world, moves, goal) cities = do
             if solution == ( checkSolution place )
                 then do
                     let newState = correctSolution (place, history, world, moves, goal)
-                    putStr ("\n" ++ correctSolutionComment place ++ "\n")
+                    putStr ("\n" ++ correctSolutionComment place)
                     return newState
                 else do
                     let newState = wrongSolution (place, history, world, moves, goal)
-                    putStr ("\n" ++ wrongSolutionComment place ++ "\n")
+                    putStr ("\n" ++ wrongSolutionComment place)
                     return newState
 
 --function displays names and numbers of the cities from given indices
