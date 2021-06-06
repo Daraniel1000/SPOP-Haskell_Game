@@ -1,6 +1,6 @@
 module Main where
 import World
-import Interface
+import MissionInterface
 import Quest
 import Text.Read
 
