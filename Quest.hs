@@ -102,7 +102,7 @@ wrongSolution :: State -> State
 wrongSolution (place, history, world, moves, goal) =
     case place of
         14 -> (7, history, world, moves, goal)
-        otherwise -> (place, history, world, ( moves + questPenalties !! (fromIntegral place ::Int) ), goal)
+        otherwise -> (place, history, world, ( moves - questPenalties !! (fromIntegral place ::Int) ), goal)
 
 wrongSolutionComment :: Integer -> String
 wrongSolutionComment place = questFailedComments !! (fromIntegral place ::Int) ++ "\n"
