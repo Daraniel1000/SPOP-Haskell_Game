@@ -63,7 +63,7 @@ addEdge (v1, v2) world = addNeighbour v1 v2 (addNeighbour v2 v1 world)
 
 --move in graph
 move :: State->Vertex->State
-move (place, history, world, moves, goal) goto = (goto, (place:history), world, moves - 1, goal)
+move (place, history, world, moves, goal) goto = (goto, (place:history), world, moves - 3, goal)
 
 --add time
 addTime :: State->Integer->State
@@ -73,15 +73,13 @@ addTime (p, h, w, moves, g) toAdd = (p, h, w, moves + toAdd, g)
 isWin :: State->Bool
 isWin (place, _, _, _, goal) | place==goal = True
                              | otherwise   = False
-                             
+
 --check if loss state is achieved
 isLose :: State->Bool
 isLose (_, _, _, moves, _) | moves<1   = True
                            | otherwise = False
-                            
+
 --list possible moves
 --if returns [], node has not been found
 getMoves :: State->[Vertex]
 getMoves (place, _, world, _, _) = neighbours (getNode place world)
-
-
